@@ -13,6 +13,8 @@ import java.awt.event.MouseListener;
 public class AppProps
 {
     public static Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
+    public static Cursor areaSelect = new Cursor(Cursor.CROSSHAIR_CURSOR);
+
     public static Color BG_GLOBAL = new Color(0x383838);
     public static Color BG_SELECTED = new Color(0x555454);
     public static Color FG_SELECTED = new Color(0xFFFFFF);
@@ -20,22 +22,13 @@ public class AppProps
     public static Color BG_NOT_SELECTED = null;
 
     public static Color CANVAS_BG = new Color(0x555454);
-    public static Color CANVAS_STROKE = new Color(0xFFFFFF);
+    public static Color CANVAS_STROKE = new Color(0xD56A23);
 
+
+    public static Color BG_NOTIFY = new Color(0x292963);
+    public static Color BG_BTN_NOTIFY = new Color(0x3C3CCD);
 
     public static Color FG_NORMAL_TEXT = new Color(0xFFFFFF);
-
-    public static double figuraOriginal[][]=
-            {{0,35,0},
-            {30,-35,20},
-            {-30,-35,20},
-            {-30,-35,-20},
-            {30,-35,-20}};
-
-
-    public static int secf[]= {2,1,2,3,3,4,4,1,1,0,2,0,3,0,4,0};
-//public static int secf[]= {2,1,2,3,3,4,4,1};//,1,1,0,2,0,3,0,4,0};
-//    public static int secf[]= {1,0,2,0};
 
 
     public static JLabel createLabelFor(String text, Runnable handler)
@@ -58,7 +51,6 @@ public class AppProps
     {
         JPanel ps1=new JPanel(new GridLayout(1,1));
         ps1.setOpaque(false);
-//        ps1.setBackground(new Color(0xF3F3F3));
         TitledBorder tb1=new TitledBorder(title);
         tb1.setBorder(BorderFactory.createLineBorder(AppProps.BG_CONTORNO));
         tb1.setTitleColor(AppProps.FG_SELECTED);

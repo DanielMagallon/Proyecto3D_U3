@@ -6,7 +6,8 @@ import static_props.AppProps;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import static main.Run.figura3D;
+
+import static main.Run.abstractShape3D;
 import static main.Run.canvas3D;
 
 public class Escalamiento extends  PanelItem implements ChangeListener
@@ -22,7 +23,7 @@ public class Escalamiento extends  PanelItem implements ChangeListener
 
     @Override
     public void stateChanged(ChangeEvent changeEvent) {
-        figura3D.actDistancia(jScale.getValue());
+        abstractShape3D.setDistance(jScale.getValue());
         canvas3D.repaint();
     }
 }

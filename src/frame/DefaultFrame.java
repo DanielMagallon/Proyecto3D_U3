@@ -24,8 +24,7 @@ public class DefaultFrame extends JFrame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setExtendedState(MAXIMIZED_BOTH);
 
-        getContentPane().setLayout(new BorderLayout(0,10));
-        setVisible(true);
+        getContentPane().setLayout(new BorderLayout(0,20));
     }
 
     public DefaultFrame minSize(int w, int h){this.setMinimumSize(new Dimension(w,h));return this;}

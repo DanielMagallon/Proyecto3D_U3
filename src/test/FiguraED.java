@@ -1,5 +1,6 @@
 package test;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class FiguraED {
@@ -9,6 +10,10 @@ public class FiguraED {
 		double Fig2D[][];
 		int distancia= 1000;
 		int mz=-350;
+		int carafrentex[]={384,384,354,354,263,263,233,233,203,203,233,233,263,263,293,293,324,324,354,354,384,384,415,415,445,445,475,475,506,506,536,536,566,566,596,596,566,566,536,536,445,445,415,415};
+		int carafrentey[]={178,148,148,118,118,148,148,178,178,300,300,330,330,360,360,390,390,421,421,451,451,481,481,451,451,421,421,390,390,360,360,330,330,300,300,178,178,148,148,118,118,148,148,178};
+		int caraatrasx[]={386,386,359,359,278,278,251,251,224,224,251,251,278,278,305,305,332,332,359,359,386,386,413,413,440,440,467,467,494,494,521,521,548,548,575,575,548,548,521,521,440,440,413,413};
+		int caraatrasy[]={191,164,164,137,137,164,164,191,191,300,300,327,327,354,354,381,381,408,408,435,435,462,462,435,435,408,408,381,381,354,354,327,327,300,300,191,191,164,164,137,137,164,164,191};
 		public void actDistancia(int dist) {
 			distancia=dist;
 		}
@@ -20,6 +25,7 @@ public class FiguraED {
 				Fig3DO[i][0]=Fig3D[i][0]*=Sx;
 				Fig3DO[i][1]=Fig3D[i][1]*=Sx;
 				Fig3DO[i][2]=Fig3D[i][2]*=Sx;
+				
 			}
 		}
 		//public void Escalar(double Sx) {
@@ -41,33 +47,53 @@ public class FiguraED {
 				Fig3D00[i][1]=Fig3DO[i][1]=Fig3D[i][1]=f[i][1];
 				Fig3D00[i][2]=Fig3DO[i][2]=Fig3D[i][2]=f[i][2];
 			}
-            System.arraycopy(s, 0, sec, 0, s.length);
+			for (int i = 0; i < s.length; i++) {
+				sec[i]=s[i];
+			}
 		}
 		public void conv2D() {
 			//cx=(d*x)/(z+mz)
 			//cy=(d*y)/(z+mz)
-            System.out.println("\n--------- Coordenas 2D ---------------\n");
+			System.out.print("{");
+			int conatras=0;
 			for (int i = 0; i < Fig3D.length; i++) {
 				Fig2D[i][0]=(distancia*Fig3D[i][0])/(Fig3D[i][2]+mz);
 				Fig2D[i][1]=(distancia*Fig3D[i][1])/(Fig3D[i][2]+mz);
-				System.out.println("X="+ Fig2D[i][0] + " Y= "+ Fig2D[i][1]);
-				Fig2D[i][0]+=tx;
-				Fig2D[i][1]+=ty;
+				
+				Fig2D[i][0]+=400;
+				Fig2D[i][1]+=300;
+				//segunda cara
+				
+					if(i>43) {
+					caraatrasx[conatras]=(int)Fig2D[i][0];
+					caraatrasy[conatras]=(int)Fig2D[i][1];
+					conatras++;
+				
+				}
+				//primer cara
+				if(i<44) {
+					carafrentex[i]=(int)Fig2D[i][0];
+					carafrentey[i]=(int)Fig2D[i][1];
+				
+				
+				}
+				
+				
 			}
-            System.out.println("\n--------- END ---------------\n");
+			System.out.print("}");
 		}
-
-//		int tx=400,ty=300;
-		int tx=0,ty= 0;
-
 		public void dibujar(Graphics g) {
-            System.out.println("\n---------- Dibujando secuencia --------------\n");
-			for (int i = 0; i <= sec.length-1; i+=2) {
+			 for(int i = 0; i <= sec.length-1; i+=2) {
 				g.drawLine((int)Fig2D[sec[i]][0], (int)Fig2D[sec[i]][1],(int)Fig2D[sec[i+1]][0], (int)Fig2D[sec[i+1]][1]);
-                System.out.printf("De (%d,%d) a (%d,%d)\n",(int)Fig2D[sec[i]][0],
-                            (int)Fig2D[sec[i]][1],(int)Fig2D[sec[i+1]][0],(int)Fig2D[sec[i+1]][1]);
+				
 			}
-            System.out.println("\n---------- END --------------\n");
+			
+			g.setColor(new Color(0x800441FF, true));
+			g.fillPolygon(caraatrasx, caraatrasy, 44);
+			g.setColor(new Color(0x9AFF0000, true));
+			g.fillPolygon(carafrentex, carafrentey, 44);
+			
+			
 		}
 		
 		public void rotacionx(int gardos) {
@@ -85,19 +111,7 @@ public class FiguraED {
 				Fig3D[i][2]= (y*seno)+(z*coseno);
 				
 			}
-
-			showArray("Rotacion X",Fig3D);
 		}
-
-		void showArray(String title,double[][] mat)
-        {
-            System.out.println("\n---------------Trans. "+title+"---------------------\n");
-            for(double fig[] : mat)
-            {
-                System.out.printf("(%d,%d,%d)\n",(int)fig[0],(int)fig[1],(int) fig[2]);
-            }
-            System.out.println("\n---------------END TRANS---------------------\n");
-        }
 		
 		public double[][] rotacionxt(int gardos) {
 			//[x,y*cos-sen*z,y*sen+z*cos]
@@ -161,6 +175,7 @@ public class FiguraED {
 	
 				g.drawLine((int)ft[sec[i]][0], (int)ft[sec[i]][1],(int)ft[sec[i+1]][0], (int)ft[sec[i+1]][1]);
 			}
+			
 		}
 		
 		public double[][] rotaciony(int gardos) {
@@ -222,8 +237,6 @@ public class FiguraED {
 				Fig3D[i][2]= z;
 				
 			}
-
-            showArray("Rotacion Z",Fig3D);
 		}
 		
 		public void rotacionz(int gardos, double v[][]) {
@@ -248,7 +261,6 @@ public class FiguraED {
 			double vr[][]=rotacionxt(grx);
 			vr=rotaciony(gry,vr);
 			rotacionz(grz, vr);
-            showArray("Rotacion XYZ",vr);
 		}
 		
 		public void rotacionXYZH(int grx,int gry, int grz) {
@@ -272,7 +284,5 @@ public class FiguraED {
 				Fig3D[i][2]=x*sa2+y*(sa1*ca2)+z*(ca1*ca2);
 				
 			}
-
-            showArray("Rotacion XYZ H",Fig3D);
 		}
 }

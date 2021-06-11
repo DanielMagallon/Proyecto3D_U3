@@ -1,18 +1,19 @@
 package main;
 
-import bin.Figura3D;
+import bin.shape3d.Cube3D;
+import bin.shape3d.Heart3D;
+import bin.shape3d.abstracts.AbstractShape3D;
 import frame.DefaultFrame;
+import modals.NotifyImage;
 import panes.Canvas3D;
 import panes.PanelItem;
-import panes.items.Escalamiento;
-import panes.items.Reflexion;
-import panes.items.Rotacion;
-import panes.items.Vistas;
+import panes.items.*;
 import panes.menu.PanelMenu;
 import static_props.AppProps;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Run
 {
@@ -20,16 +21,27 @@ public class Run
     private static JPanel panelMenus, panelMenuItem;
 
     public static Canvas3D canvas3D;
-    public static Figura3D figura3D;
+//    public static Figura3D figura3D;
+
+    public static NotifyImage notifyImage;
+
+    public static boolean exportImage;
+    public static BufferedImage bufferedImage;
+
+    public static AbstractShape3D abstractShape3D;
+    private static Cube3D cube3D;
+    private static Heart3D heart3D;
 
     static void initPanelItems(){
         JPanel panel = new JPanel(new BorderLayout()){{
             setOpaque(false);
         }};
+
         Rotacion panelRotacion = new Rotacion();
         Vistas vistas = new Vistas();
         Escalamiento escalamiento = new Escalamiento();
         Reflexion reflexion = new Reflexion();
+        Configuracion configuracion = new Configuracion();
 
         panelMenus = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0))
         {{
@@ -38,6 +50,7 @@ public class Run
             add(new PanelMenu(escalamiento,"Escalamiento"));
             add(new PanelMenu(reflexion,"Reflexion"));
             add(new PanelMenu(vistas,"Vistas"));
+            add(new PanelMenu(configuracion,"Configuracion"));
         }};
 
         panelMenuItem = new JPanel(new BorderLayout());
@@ -47,12 +60,17 @@ public class Run
         panel.add(panelMenuItem);
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
 
-        canvas3D = new Canvas3D();
 
         frame.getContentPane().setBackground(AppProps.BG_GLOBAL);
         frame.getContentPane().add(panel,"North");
+        canvas3D = new Canvas3D();
         frame.getContentPane().add(canvas3D);
+
+//        help = new Help(frame,true);
+
     }
+
+//    public static Help help;
 
     public static void updatePanelItem(PanelItem panelItem){
         panelMenuItem.removeAll();
@@ -63,12 +81,20 @@ public class Run
 
 
     public static void init(){
-        frame = new DefaultFrame("Proyecto U3 -- Transformacions 3D");
+        frame = new DefaultFrame("Proyecto U3 -- Transformacions 3D").minSize(600,600);
         initPanelItems();
-        figura3D = new Figura3D();
+//        figura3D = new Figura3D();
+        notifyImage = new NotifyImage(frame);
+        frame.setVisible(true);
+        {
+            cube3D = new Cube3D();
+            heart3D = new Heart3D();
+            abstractShape3D = heart3D;
+        }
+        canvas3D.requestFocus();
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(Run::init);
+        EventQueue.invokeLater(Run::init);
     }
 }
