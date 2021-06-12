@@ -22,12 +22,6 @@ public class Heart3D extends Shape3D
                     "2N1", "Nn1", "2Nn1", "O1", "2O1", "P1", "2P1"
             };
 
-    private int[] sequenceLine ={
-            0,44,1,45,2,46,3,47,4,48,5,49,6,50,7,51,8,52,9,53,10,54,11,55,12,56,13,57,14,
-            58,15,59,16,60,17,61,18,62,19,63,20,64,21,65,22,66,23,67,24,68,25,69,26,70,27,
-            71,28,72,29,73,30,74,31,75,32,76,33,77,34,78,35,79,36,80,37,81,38,82,39,83,40,84,41,85,42,86,43,87
-    };
-
     private double[][] unions3D, originalPoints3D, unions2D;
 
     public Heart3D()
@@ -197,7 +191,8 @@ public class Heart3D extends Shape3D
                                 hashPoints.get("N1"),
                                 hashPoints.get("Nn1"),
                                 hashPoints.get("O1"),
-                                hashPoints.get("P1")
+                                hashPoints.get("P1"),
+                                hashPoints.get("A"),
                         }),
                 new Face3D("Behind face",new Color(0xBB2648),
                         new double[][]{
@@ -245,6 +240,7 @@ public class Heart3D extends Shape3D
                                 hashPoints.get("2Nn1"),
                                 hashPoints.get("2O1"),
                                 hashPoints.get("2P1"),
+                                hashPoints.get("2A"),
                         }),
         };
     }
@@ -298,5 +294,83 @@ public class Heart3D extends Shape3D
             unions3D[i][1]=x*(ca2*sa3)+y*((sa1*-sa2)*(sa3)+(ca1*ca3))+z*((ca1*-sa2)*(sa3)+(-sa1*ca3));
             unions3D[i][2]=x*sa2+y*(sa1*ca2)+z*(ca1*ca2);
         }
+    }
+
+
+
+    public void VistaSup(Graphics2D g) {
+        super.VistaSup(g);
+        double[][] figtemp =rotacionxt(90);
+        //eliminamos la profundidad
+        for(int i=0;i<figtemp.length;i++) {
+            figtemp[i][2]=0;
+            figtemp[i][0]+=incXSup;
+            figtemp[i][1]+=incYSup;
+        }
+        view(g,figtemp, "Vista superior",25,60);
+    }
+
+    public void VistaLat(Graphics2D g) {
+       super.VistaLat(g);
+        double figtemp[][]=rotaciony(90);
+        //eliminamos la profundidad
+        for(int i=0;i<figtemp.length;i++) {
+            figtemp[i][2]=0;
+            figtemp[i][1]*=-1;
+            figtemp[i][0]+=incXLat;
+            figtemp[i][1]+=incYLat;
+
+        }
+        view(g,figtemp,"Vista Lateral",25,140);
+    }
+
+    private void view(Graphics2D g, double[][] ft, String texto, int x, int y) {
+        g.drawString(texto, x, y);
+        for (int i = 0; i <= ft.length-1; i+=2) {
+            g.drawLine((int)ft[i][0],(int) ft[i][1], (int)ft[i+1][0],(int)ft[i+1][1]);
+        }
+    }
+
+    private double[][] rotacionxt(int gardos) {
+        //[x,y*cos-sen*z,y*sen+z*cos]
+        double gradosRad=Math.toRadians(gardos);
+        double coseno=Math.cos(gradosRad);
+        double seno=Math.sin(gradosRad);
+        double vt[][]=new double[originalPoints3D.length][3];
+        for (int i = 0; i < originalPoints3D.length; i++) {
+            double x= originalPoints3D[i][0];
+            double y= originalPoints3D[i][1];
+            double z= originalPoints3D[i][2];
+            vt[i][0]=x;
+            vt[i][1]=(y*coseno)-(seno*z);
+            vt[i][2]= (y*seno)+(z*coseno);
+
+        }
+        return vt;
+
+    }
+
+    private double[][] rotaciony(int gardos) {
+        //x*cos-sen*z,y, x*sen+z*cos
+        double gradosRad=Math.toRadians(gardos);
+        double coseno=Math.cos(gradosRad);
+        double seno=Math.sin(gradosRad);
+        double vt[][]=new double [originalPoints3D.length][3];
+
+        for (int i = 0; i < vt.length; i++) {
+            double x= originalPoints3D[i][0];
+            double y= originalPoints3D[i][1];
+            double z= originalPoints3D[i][2];
+            //al sentido
+				/*vt[i][0]=(x*coseno)-(seno*z);;
+				vt[i][1]=y;
+				vt[i][2]= (x*seno)+(z*coseno);*/
+            //al contrario
+            vt[i][0]=(x*coseno)-(seno*z);
+            vt[i][1]=y;
+            vt[i][2]= +(x*seno)+(z*coseno);
+
+        }
+        return vt;
     }
 }

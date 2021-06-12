@@ -85,8 +85,12 @@ public class Canvas3D extends JPanel
     protected void paintComponent(Graphics graphics) {
         if(!exportImage) {
             super.paintComponent(graphics);
+            Graphics2D g2 = (Graphics2D) graphics;
             abstractShape3D.conv2D();
-            abstractShape3D.draw((Graphics2D) graphics);
+            abstractShape3D.draw(g2);
+            abstractShape3D.VistaFrontal(g2);
+            abstractShape3D.VistaLat(g2);
+            abstractShape3D.VistaSup(g2);
         }else{
 
             if(selecctionListener.drawArea)

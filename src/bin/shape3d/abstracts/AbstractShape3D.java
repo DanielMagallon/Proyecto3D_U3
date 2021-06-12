@@ -13,4 +13,8 @@ public interface AbstractShape3D
     void initShape3D();
     boolean dentro(int cx,int cy);
     void mover(int cx,int cy);
+    void VistaSup(Graphics2D g);
+    void VistaLat(Graphics2D g);
+    void VistaFrontal(Graphics2D g);
+    void dibujarVista(Graphics2D g, double ft[][], String texto, int x, int y );
 }
