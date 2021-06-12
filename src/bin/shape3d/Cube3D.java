@@ -12,14 +12,18 @@ public class Cube3D extends Shape3D
     public Cube3D()
     {
         hashPoints = new HashMap<String,double[]>(){{
-            put("A",new double[]{-40,-40,40});
-            put("B",new double[]{40,-40,40});
-            put("C",new double[]{40,40,40});
-            put("D",new double[]{-40,40,40});
-            put("E",new double[]{-40,40,-40});
-            put("F",new double[]{40,40,-40});
-            put("G",new double[]{40,-40,-40});
-            put("H",new double[]{-40,-40,-40});
+            put("A",new double[]{-45,-45,45});
+            put("B",new double[]{45,-45,45});
+            put("C",new double[]{45,45,45});
+            put("D",new double[]{-45,45,45});
+            put("E",new double[]{-45,45,-45});
+            put("F",new double[]{45,45,-45});
+            put("G",new double[]{45,-45,-45});
+            put("H",new double[]{-45,-45,-45});
+
+            put("I",new double[]{-15,-45,45});
+            put("J",new double[]{-15,45,45});
+            put("K",new double[]{-15,-45,45});
         }};
         initShape3D();
     }

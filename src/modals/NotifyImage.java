@@ -13,6 +13,8 @@ import static main.Run.bufferedImage;
 public class NotifyImage extends JDialog
 {
 
+    private JTextField txtName;
+
     public NotifyImage(JFrame frame)
     {
         super(frame,"Guardando imagen",true);
@@ -21,8 +23,8 @@ public class NotifyImage extends JDialog
 
         JLabel lbl = new JLabel("Nombre de la imagen:");
         lbl.setForeground(AppProps.FG_NORMAL_TEXT);
-        JTextField txtName = new JTextField(15);
-
+        txtName = new JTextField(15);
+        txtName.addActionListener(a->accept());
         JPanel panelData = new JPanel(new FlowLayout(FlowLayout.CENTER)){{
             setOpaque(false);
             add(lbl);
@@ -32,17 +34,7 @@ public class NotifyImage extends JDialog
         JButton btnAcep = new JButton("Aceptar"){{
             setBackground(AppProps.BG_BTN_NOTIFY);
             setForeground(AppProps.FG_NORMAL_TEXT);
-            addActionListener(a->{
-                if(SaveImage.existImage(txtName.getText())){
-                    JOptionPane.showMessageDialog(null,
-                            "Ingrese otro nombre","La imagen ya existe",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-                else {
-                    SaveImage.saveImage(bufferedImage, txtName.getText());
-                    NotifyImage.this.dispose();
-                }
-            });
+            addActionListener(a->accept());
         }};
         JButton btnCancel = new JButton("Cancelar"){{
             setBackground(AppProps.BG_BTN_NOTIFY);
@@ -65,7 +57,23 @@ public class NotifyImage extends JDialog
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation(dim.width-this.getWidth()-10,dim.height-this.getHeight()-50);
     }
-    //    public static void main(String[] args) {
-//        new NotifyImage(new JFrame()).setVisible(true);
-//    }
+
+    private void accept(){
+
+        if(txtName.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null,
+                    "Ingrese un nombre valido","Nombre no valido",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+        else if(SaveImage.existImage(txtName.getText())){
+            JOptionPane.showMessageDialog(null,
+                    "Ingrese otro nombre","La imagen ya existe",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            SaveImage.saveImage(bufferedImage, txtName.getText());
+            NotifyImage.this.dispose();
+        }
+    }
 }

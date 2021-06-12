@@ -11,7 +11,7 @@ import static main.Run.*;
 
 public class Rotacion extends PanelItem implements ChangeListener
 {
-    private final JSlider s1,s2,s3;
+    public final JSlider s1,s2,s3;
 
     public Rotacion()
     {

@@ -2,6 +2,7 @@ package main;
 
 import bin.shape3d.Cube3D;
 import bin.shape3d.Heart3D;
+import bin.shape3d.Structure3D;
 import bin.shape3d.abstracts.AbstractShape3D;
 import frame.DefaultFrame;
 import modals.NotifyImage;
@@ -29,19 +30,22 @@ public class Run
     public static BufferedImage bufferedImage;
 
     public static AbstractShape3D abstractShape3D;
-    private static Cube3D cube3D;
-    private static Heart3D heart3D;
+    public static Cube3D cube3D;
+    public static Heart3D heart3D;
+    public static Structure3D structure3D;
+    public static Rotacion panelRotacion = new Rotacion();
+
 
     static void initPanelItems(){
         JPanel panel = new JPanel(new BorderLayout()){{
             setOpaque(false);
         }};
 
-        Rotacion panelRotacion = new Rotacion();
         Vistas vistas = new Vistas();
         Escalamiento escalamiento = new Escalamiento();
         Reflexion reflexion = new Reflexion();
         Configuracion configuracion = new Configuracion();
+        ChosseShape chosseShape = new ChosseShape();
 
         panelMenus = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0))
         {{
@@ -50,7 +54,9 @@ public class Run
             add(new PanelMenu(escalamiento,"Escalamiento"));
             add(new PanelMenu(reflexion,"Reflexion"));
             add(new PanelMenu(vistas,"Vistas"));
+            add(new PanelMenu(chosseShape,"Figuras"));
             add(new PanelMenu(configuracion,"Configuracion"));
+
         }};
 
         panelMenuItem = new JPanel(new BorderLayout());
@@ -89,7 +95,8 @@ public class Run
         {
             cube3D = new Cube3D();
             heart3D = new Heart3D();
-            abstractShape3D = heart3D;
+            structure3D = new Structure3D();
+            abstractShape3D = structure3D;
         }
         canvas3D.requestFocus();
     }

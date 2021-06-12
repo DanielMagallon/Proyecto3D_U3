@@ -6,9 +6,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 public class AppProps
 {
@@ -22,7 +20,7 @@ public class AppProps
     public static Color BG_NOT_SELECTED = null;
 
     public static Color CANVAS_BG = new Color(0x555454);
-    public static Color CANVAS_STROKE = new Color(0xD56A23);
+    public static Color CANVAS_STROKE = new Color(0x000000);
 
 
     public static Color BG_NOTIFY = new Color(0x292963);
@@ -44,6 +42,18 @@ public class AppProps
         });
         lbl.setForeground(FG_NORMAL_TEXT);
         return lbl;
+    }
+
+    public static void setActionPanel(String KEY,JPanel panel,int caracter,int accel,Runnable handler){
+        Action event = new AbstractAction(KEY) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handler.run();
+            }
+        };
+        panel.getInputMap().put(
+                KeyStroke.getKeyStroke(caracter,accel), KEY);
+        panel.getActionMap().put(KEY, event);
     }
 
     public static JSlider addRotationItem(String title, ChangeListener handler, PanelItem p,int min, int max, int val,

@@ -1,5 +1,7 @@
 package bin.handlers;
 
+import static_props.AppProps;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,7 +16,6 @@ public class SelecctionListener extends MouseAdapter implements KeyListener
     private int currentX,currentY;
     private JPanel panelRef;
     private Runnable onCancel,onPrepare;
-    private  final String SELECT = "Select";
 
     public SelecctionListener(JPanel canvas,Runnable onCancel,Runnable onPrepare)
     {
@@ -25,16 +26,7 @@ public class SelecctionListener extends MouseAdapter implements KeyListener
         panelRef.setFocusable(true);
         panelRef.requestFocusInWindow();
 
-        Action select = new AbstractAction(SELECT) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                prepare();
-                System.out.println("Ejeuctando");
-            }
-        };
-        panelRef.getInputMap().put(
-                KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_MASK), SELECT);
-        panelRef.getActionMap().put(SELECT, select);
+        AppProps.setActionPanel("Select",panelRef,KeyEvent.VK_S,InputEvent.CTRL_MASK, this::prepare);
     }
 
 

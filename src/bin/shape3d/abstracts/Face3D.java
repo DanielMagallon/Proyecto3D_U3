@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Face3D
 {
     public String name;
-    public double[][] originalPoints3D, points3D,points2D;
+    public double[][] originalPoints3D, points3D;
     private Color bg_color;
     public Face3D(String name,Color bg, double[][] points3D)
     {
@@ -20,23 +20,20 @@ public class Face3D
             this.points3D[i] = new double[points3D[i].length];
             System.arraycopy(points3D[i],0,this.points3D[i],0,points3D[i].length);
         }
-        this.points2D = new double[points3D.length][];
 
-        for(int i=0; i<points3D.length; i++)
-        {
-            points2D[i] = new double[points3D[i].length];
-        }
     }
 
-    int[] xPts,yPts;
+    public int[] xPts,yPts;
 
     public void to2D(int distance, int mz,int xInc, int yInc){
         ArrayList<Double> xPoints = new ArrayList<>();
         ArrayList<Double> yPoints = new ArrayList<>();
-
-        for (int i = 0; i < points3D.length; i++) {
-            xPoints.add((distance*points3D[i][0]) / (points3D[i][2]+mz) + xInc );
-            yPoints.add( (distance*points3D[i][1]) / (points3D[i][2]+mz) + yInc );
+        double vX,vY;
+        for (double[] doubles : points3D) {
+            vX = (distance * doubles[0]) / (doubles[2] + mz) + xInc;
+            vY = (distance * doubles[1]) / (doubles[2] + mz) + yInc;
+            xPoints.add(vX);
+            yPoints.add(vY);
         }
 
         xPts = new int[xPoints.size()];
@@ -45,6 +42,15 @@ public class Face3D
         for (int i = 0; i < xPts.length; i++) {
             xPts[i] =  (int)((double)xPoints.get(i));
             yPts[i] = (int) ((double)yPoints.get(i));
+        }
+    }
+
+    public void scale(double Sx){
+        for (int i = 0; i <points3D.length; i++) {
+            points3D[i][0]=points3D[i][0]*=Sx;
+            points3D[i][1]=points3D[i][1]*=Sx;
+            points3D[i][2]=points3D[i][2]*=Sx;
+
         }
     }
 

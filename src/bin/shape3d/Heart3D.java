@@ -2,12 +2,33 @@ package bin.shape3d;
 
 import bin.shape3d.abstracts.Face3D;
 import bin.shape3d.abstracts.Shape3D;
+import static_props.AppProps;
 
 import java.awt.*;
 import java.util.HashMap;
 
 public class Heart3D extends Shape3D
 {
+
+
+
+    private String[] sequence =
+            {
+                    "A", "2A", "B", "2B", "C", "2C", "D", "2D", "E", "2E", "F", "2F", "G", "2G", "H", "2H", "I",
+                    "2I", "J", "2J", "K", "2K", "L", "2L", "M", "2M", "N", "2N", "Nn", "2Nn", "O", "2O", "P", "2P",
+                    "Q", "2Q", "R", "2R", "S", "2S", "T", "2T", "U", "2U", "V", "2V", "W", "2W", "X", "2X", "Y",
+                    "2Y", "Z", "2Z", "A1", "2A1", "B1", "2B1", "C1", "2C1", "D1", "2D1", "E1", "2E1", "F1", "2F1",
+                    "G1", "2G1", "H1", "2H1", "I1", "2I1", "J1", "2J1", "K1", "2K1", "L1", "2L1", "M1", "2M1", "N1",
+                    "2N1", "Nn1", "2Nn1", "O1", "2O1", "P1", "2P1"
+            };
+
+    private int[] sequenceLine ={
+            0,44,1,45,2,46,3,47,4,48,5,49,6,50,7,51,8,52,9,53,10,54,11,55,12,56,13,57,14,
+            58,15,59,16,60,17,61,18,62,19,63,20,64,21,65,22,66,23,67,24,68,25,69,26,70,27,
+            71,28,72,29,73,30,74,31,75,32,76,33,77,34,78,35,79,36,80,37,81,38,82,39,83,40,84,41,85,42,86,43,87
+    };
+
+    private double[][] unions3D, originalPoints3D, unions2D;
 
     public Heart3D()
     {
@@ -105,6 +126,28 @@ public class Heart3D extends Shape3D
             put("2P1",new double[]{-5,40,-20});
         }};
         initShape3D();
+        initUnion3D();
+    }
+
+    private void initUnion3D(){
+        unions3D = new double[sequence.length][3];
+        originalPoints3D = new double[sequence.length][3];
+        unions2D = new double[sequence.length][2];
+
+        int i=0;
+        for (String s : sequence) {
+            unions3D[i] = hashPoints.get(s).clone();
+            originalPoints3D[i++] = hashPoints.get(s).clone();
+        }
+    }
+
+    private void to2D(){
+        int i=0;
+        for (double [] union : unions3D)
+        {
+            unions2D[i][0] = (distance * union[0]) / (union[2] + mz) + despx;
+            unions2D[i++][1] = (distance * union[1]) / (union[2] + mz) + despy;
+        }
     }
 
     public void initShape3D(){
@@ -204,5 +247,56 @@ public class Heart3D extends Shape3D
                                 hashPoints.get("2P1"),
                         }),
         };
+    }
+
+    @Override
+    public void draw(Graphics2D g2)
+    {
+        super.draw(g2);
+        g2.setColor(AppProps.CANVAS_STROKE);
+        to2D();
+        for(int i = 0; i <= sequence.length-1; i+=2) {
+            g2.drawLine((int)unions2D[i][0],
+                    (int)unions2D[i][1],(int)unions2D[i+1][0],
+                    (int)unions2D[i+1][1]);
+
+        }
+    }
+
+    @Override
+    public void scale(double factor) {
+        super.scale(factor);
+        for (int i = 0; i <unions3D.length; i++) {
+            unions3D[i][0]=unions3D[i][0]*=factor;
+            unions3D[i][1]=unions3D[i][1]*=factor;
+            unions3D[i][2]=unions3D[i][2]*=factor;
+        }
+    }
+
+    @Override
+    public void rotacionXYZH(int grx, int gry, int grz) {
+        super.rotacionXYZH(grx, gry, grz);
+        rotate(grx,gry,grz);
+    }
+
+    private void rotate(int grx, int gry, int grz){
+        double gradosRadx=Math.toRadians(grx);
+        double gradosRady=Math.toRadians(gry);
+        double gradosRadz=Math.toRadians(grz);
+        double sa1=Math.sin(gradosRadx);
+        double sa2=Math.sin(gradosRady);
+        double sa3=Math.sin(gradosRadz);
+        double ca1=Math.cos(gradosRadx);
+        double ca2=Math.cos(gradosRady);
+        double ca3=Math.cos(gradosRadz);
+
+        for (int i = 0; i < this.unions3D.length; i++) {
+            double x= originalPoints3D[i][0];
+            double y= originalPoints3D[i][1];
+            double z= originalPoints3D[i][2];
+            unions3D[i][0]=x*(ca2*ca3)+y*((sa1*-sa2)*ca3+(ca1*-sa3))+z*((ca1*-sa2)*(ca3)+(-sa1*-sa3));
+            unions3D[i][1]=x*(ca2*sa3)+y*((sa1*-sa2)*(sa3)+(ca1*ca3))+z*((ca1*-sa2)*(sa3)+(-sa1*ca3));
+            unions3D[i][2]=x*sa2+y*(sa1*ca2)+z*(ca1*ca2);
+        }
     }
 }
