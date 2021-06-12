@@ -11,13 +11,11 @@ public abstract class PanelItem extends JPanel
     {
         setBackground(AppProps.BG_SELECTED);
         setLayout(new FlowLayout(FlowLayout.CENTER));
-//        add(new JLabel(title));
     }
 
     public PanelItem(int r, int c)
     {
         setBackground(AppProps.BG_SELECTED);
         setLayout(new GridLayout(r,c));
-//        add(new JLabel(title));
     }
 }

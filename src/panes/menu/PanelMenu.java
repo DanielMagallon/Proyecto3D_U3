@@ -20,7 +20,8 @@ public class PanelMenu extends JPanel
         this(panelItem,title,false);
     }
 
-    public PanelMenu(PanelItem panelItem,String title,boolean selected)
+
+    public PanelMenu(PanelItem panelItem, String title, boolean selected)
     {
         this.panelItem = panelItem;
         setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK));
@@ -45,6 +46,7 @@ public class PanelMenu extends JPanel
         if(auxPanel !=null){
             auxPanel.lblMenu.setForeground(Color.black);
             auxPanel.setBackground(AppProps.BG_NOT_SELECTED);
+            Run.canvas3D.requestFocus();
         }
 
         auxPanel = this;

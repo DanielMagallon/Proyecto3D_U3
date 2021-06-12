@@ -24,6 +24,35 @@ public class Rotacion extends PanelItem implements ChangeListener
                         0,350,0,10,60);
     }
 
+    public void action(String coord, boolean positive){
+        
+        if(coord.equalsIgnoreCase("X")){
+            updateData(s1,positive);
+
+        }else if(coord.equalsIgnoreCase("Y")){
+            updateData(s2,positive);
+        }
+        else{
+            updateData(s3,positive);
+        }
+    }
+
+    private void updateData(JSlider master,boolean positive)
+    {
+        int val = master.getValue();
+        if(positive){
+            if(val==master.getMaximum())
+                return;
+        }else{
+            if(val==0)
+                return;
+        }
+        val += (positive ? 10 : -10);
+        master.setValue(val);
+        abstractShape3D.rotacionXYZH(s1.getValue(), s2.getValue(),s3.getValue());
+
+    }
+
     @Override
     public void stateChanged(ChangeEvent changeEvent)
     {

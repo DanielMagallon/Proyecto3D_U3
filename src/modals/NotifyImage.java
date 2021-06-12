@@ -19,7 +19,7 @@ public class NotifyImage extends JDialog
     {
         super(frame,"Guardando imagen",true);
         getContentPane().setLayout(new BorderLayout());
-        getContentPane().setBackground(AppProps.BG_GLOBAL);
+        getContentPane().setBackground(AppProps.BG_NOTIFY);
 
         JLabel lbl = new JLabel("Nombre de la imagen:");
         lbl.setForeground(AppProps.FG_NORMAL_TEXT);

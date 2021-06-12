@@ -41,11 +41,14 @@ public class Run
             setOpaque(false);
         }};
 
-        Vistas vistas = new Vistas();
+        Caras caras = new Caras(1500,0);
         Escalamiento escalamiento = new Escalamiento();
         Reflexion reflexion = new Reflexion();
         Configuracion configuracion = new Configuracion();
         ChosseShape chosseShape = new ChosseShape();
+
+        panelMenuItem = new JPanel(new BorderLayout());
+        panelMenuItem.add(panelRotacion);
 
         panelMenus = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0))
         {{
@@ -53,14 +56,14 @@ public class Run
             add(new PanelMenu(panelRotacion,"Rotaciones",true));
             add(new PanelMenu(escalamiento,"Escalamiento"));
             add(new PanelMenu(reflexion,"Reflexion"));
-            add(new PanelMenu(vistas,"Vistas"));
+            add(new PanelMenu(caras,"Caras"));
             add(new PanelMenu(chosseShape,"Figuras"));
             add(new PanelMenu(configuracion,"Configuracion"));
 
+
         }};
 
-        panelMenuItem = new JPanel(new BorderLayout());
-        panelMenuItem.add(panelRotacion);
+
 
         panel.add(panelMenus,"North");
         panel.add(panelMenuItem);
@@ -87,7 +90,7 @@ public class Run
 
 
     public static void init(){
-        frame = new DefaultFrame("Proyecto U3 -- Transformacions 3D").minSize(600,600);
+        frame = new DefaultFrame("Proyecto U3 -- Transformacions 3D").minSize(730,630);
         initPanelItems();
 //        figura3D = new Figura3D();
         notifyImage = new NotifyImage(frame);

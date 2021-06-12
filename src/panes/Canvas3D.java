@@ -5,6 +5,7 @@ import main.Run;
 import static_props.AppProps;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -19,7 +20,11 @@ public class Canvas3D extends JPanel
 
     public Canvas3D() {
         setDoubleBuffered(true);
-        setBorder(BorderFactory.createLineBorder(Color.black));
+        TitledBorder titledBorder = new TitledBorder("Lienzo de dibujo");
+        titledBorder.setTitleColor(AppProps.FG_NORMAL_TEXT);
+        titledBorder.setTitleJustification(TitledBorder.CENTER);
+        titledBorder.setBorder(BorderFactory.createLineBorder(AppProps.BG_CONTORNO));
+        setBorder(titledBorder);
         setBackground(AppProps.CANVAS_BG);
         selecctionListener = new SelecctionListener(this,()->exportImage=false,()->{
             exportImage=true;
@@ -31,20 +36,22 @@ public class Canvas3D extends JPanel
         });
 
         AppProps.setActionPanel("RX-",this, KeyEvent.VK_X, InputEvent.CTRL_MASK,
-                ()->{
-                        panelRotacion.s1.setValue(panelRotacion.s1.getValue()-10);
-                        abstractShape3D.rotacionXYZH(panelRotacion.s1.getValue(),
-                                panelRotacion.s2.getValue(),panelRotacion.s3.getValue());
-                    System.out.println("Rotando en x");
-                });
+                ()->    panelRotacion.action("X",false));
 
         AppProps.setActionPanel("RX+",this, KeyEvent.VK_X, InputEvent.ALT_MASK,
-                ()->{
-                    panelRotacion.s1.setValue(panelRotacion.s1.getValue()+10);
-                    abstractShape3D.rotacionXYZH(panelRotacion.s1.getValue(),
-                            panelRotacion.s2.getValue(),panelRotacion.s3.getValue());
-                    System.out.println("Rotando en x");
-                });
+                ()->panelRotacion.action("X",true));
+
+        AppProps.setActionPanel("RY-",this, KeyEvent.VK_Y, InputEvent.CTRL_MASK,
+                ()->    panelRotacion.action("Y",false));
+
+        AppProps.setActionPanel("RY+",this, KeyEvent.VK_Y, InputEvent.ALT_MASK,
+                ()->panelRotacion.action("Y",true));
+
+        AppProps.setActionPanel("RZ-",this, KeyEvent.VK_Z, InputEvent.CTRL_MASK,
+                ()->    panelRotacion.action("Z",false));
+
+        AppProps.setActionPanel("RZ+",this, KeyEvent.VK_Z, InputEvent.ALT_MASK,
+                ()->panelRotacion.action("Z",true));
 
         addMouseListener(selecctionListener);
         addMouseMotionListener(selecctionListener);
@@ -61,12 +68,16 @@ public class Canvas3D extends JPanel
         });
 
         addMouseListener(new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                    int cx=e.getX(), cy=e.getY();
-                    arrastrar=abstractShape3D.dentro(cx,cy);
-                }
+                            public void mousePressed(MouseEvent e) {
+                                int cx=e.getX(), cy=e.getY();
+                                arrastrar=abstractShape3D.dentro(cx,cy);
+                            }
 
-            }
+                             @Override
+                             public void mouseEntered(MouseEvent mouseEvent) {
+                                 canvas3D.requestFocus();
+                             }
+                         }
         );
 
         addMouseMotionListener(new MouseMotionAdapter() {

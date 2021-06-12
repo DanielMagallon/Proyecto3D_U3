@@ -13,13 +13,13 @@ public class AppProps
     public static Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
     public static Cursor areaSelect = new Cursor(Cursor.CROSSHAIR_CURSOR);
 
-    public static Color BG_GLOBAL = new Color(0x383838);
-    public static Color BG_SELECTED = new Color(0x555454);
+    public static Color BG_GLOBAL = new Color(0xD2D0D0);
+    public static Color BG_SELECTED = new Color(0x382B2B);
     public static Color FG_SELECTED = new Color(0xFFFFFF);
-    public static Color BG_CONTORNO = new Color(0xF8D500);
+    public static Color BG_CONTORNO = new Color(0xF83A00);
     public static Color BG_NOT_SELECTED = null;
 
-    public static Color CANVAS_BG = new Color(0x555454);
+    public static Color CANVAS_BG = new Color(0x382B2B);
     public static Color CANVAS_STROKE = new Color(0x000000);
 
 
