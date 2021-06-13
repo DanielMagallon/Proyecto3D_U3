@@ -5,6 +5,7 @@ import java.awt.*;
 public interface AbstractShape3D
 {
     void draw(Graphics2D g2);
+    void setcolor(Graphics2D g2);
     void rotacionXYZH(int grx,int gry, int grz);
     void conv2D();
     void scale(double factor);
