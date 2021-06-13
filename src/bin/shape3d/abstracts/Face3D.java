@@ -54,11 +54,15 @@ public class Face3D
         }
     }
 
+    public static boolean filled=true;
+
     public void drawFace(Graphics2D g2){
         g2.setColor(AppProps.CANVAS_STROKE);
         g2.drawPolygon(xPts,yPts,xPts.length);
-        g2.setColor(this.bg_color);
-        g2.fillPolygon(xPts,yPts,xPts.length);
+        if(filled) {
+            g2.setColor(this.bg_color);
+            g2.fillPolygon(xPts, yPts, xPts.length);
+        }
     }
     
     public void setcolor(Graphics2D g2){

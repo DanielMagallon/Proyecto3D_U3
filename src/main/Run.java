@@ -15,10 +15,7 @@ import static_props.AppProps;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 public class Run
@@ -32,7 +29,7 @@ public class Run
 
     public static NotifyImage notifyImage;
 
-    public static boolean exportImage;
+    public static boolean exportImage, showViews;
     public static BufferedImage bufferedImage;
 
     public static AbstractShape3D abstractShape3D;
@@ -40,7 +37,7 @@ public class Run
     public static Heart3D heart3D;
     public static Structure3D structure3D;
     public static Rotacion panelRotacion = new Rotacion();
-    static JToggleButton seleccionpane=new JToggleButton("Ver vistas");
+    public static JLabel seleccionpane=new JLabel("Ver vistas");
 
     static void initPanelItems(){
         JPanel panel = new JPanel(new BorderLayout()){{
@@ -55,6 +52,32 @@ public class Run
 
         panelMenuItem = new JPanel(new BorderLayout());
         panelMenuItem.add(panelRotacion);
+
+        seleccionpane.setCursor(AppProps.handCursor);
+        seleccionpane.setForeground(Color.black);
+        seleccionpane.addMouseListener( new MouseAdapter() {
+
+            public void mouseClicked(MouseEvent e) {
+
+                if(!showViews) {
+                    seleccionpane.setText("Ver Dibujos");
+                    seleccionpane.setForeground(AppProps.BG_CONTORNO);
+                    frame.getContentPane().remove(canvas3D);
+                    frame.getContentPane().add(Canvasvistas);
+                    frame.getContentPane().validate();
+                    frame.getContentPane().repaint();
+                }else {
+                    seleccionpane.setText("Ver vistas");
+                    seleccionpane.setForeground(Color.black);
+                    frame.getContentPane().remove(Canvasvistas);
+                    frame.getContentPane().add(canvas3D);
+                    frame.getContentPane().validate();
+                    frame.getContentPane().repaint();
+
+                }
+                showViews=!showViews;
+            }
+        });
 
         panelMenus = new JPanel(new FlowLayout(FlowLayout.LEFT,0,0))
         {{
@@ -73,6 +96,7 @@ public class Run
 
         panel.add(panelMenus,"North");
         panel.add(panelMenuItem);
+        panel.setPreferredSize(new Dimension(0,100));
         panel.setBorder(BorderFactory.createLineBorder(Color.black));
 
 
@@ -80,41 +104,10 @@ public class Run
         frame.getContentPane().add(panel,"North");
         canvas3D = new Canvas3D();
         Canvasvistas = new Canvasvistas();
-        if(seleccionpane.isSelected()) {
-        	seleccionpane.setText("Ver Dibujos"); 
-        	frame.getContentPane().add(Canvasvistas);
-        }else {
-        	seleccionpane.setText("Ver Vistas");
-        	seleccionpane.setBackground(Color.RED);
-				seleccionpane.setForeground(Color.white);
-        	frame.getContentPane().add(canvas3D);
-        }
-        //frame.getContentPane().add(canvas3D);
-        
-        
-        seleccionpane.addItemListener( new ItemListener() {
-			
-   			public void itemStateChanged(ItemEvent e) {
-   				// TODO Auto-generated method stub
-   				if(seleccionpane.isSelected()) {
-   					seleccionpane.setText("Ver Dibujos"); 
-   					seleccionpane.setBackground(Color.RED);
-   					seleccionpane.setForeground(Color.white);
-   					frame.getContentPane().remove(canvas3D);
-   					frame.getContentPane().add(Canvasvistas);
-   					frame.getContentPane().repaint();
-   					System.out.println("entra para ver vistas");
-   				}else {
-   					seleccionpane.setText("Ver vistas"); 
-   					frame.getContentPane().remove(Canvasvistas);
-   					frame.getContentPane().add(canvas3D);
-   					System.out.println("entra para ver dibujos");
-   					frame.getContentPane().repaint();
-   					
-   				}
-   			}
-   		});
-        
+
+
+
+        frame.getContentPane().add(canvas3D);
 
 //        help = new Help(frame,true);
 

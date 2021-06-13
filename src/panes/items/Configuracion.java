@@ -1,5 +1,6 @@
 package panes.items;
 
+import bin.shape3d.abstracts.Face3D;
 import panes.PanelItem;
 import static_props.AppProps;
 
@@ -15,7 +16,7 @@ import static main.Run.*;
 
 public class Configuracion extends PanelItem
 {
-    private JLabel lblExportAll,lblExportSelect;
+    private JLabel lblExportAll,lblExportSelect,lblFill;
 
     public Configuracion()
     {
@@ -34,7 +35,14 @@ public class Configuracion extends PanelItem
         });
 
         lblExportSelect = AppProps.createLabelFor("Exportar seleccion",()->canvas3D.selecctionListener.prepare());
+
+        lblFill = AppProps.createLabelFor("Relleno",()->{
+            Face3D.filled=!Face3D.filled;
+            canvas3D.repaint();
+        });
+
         add(lblExportAll);
         add(lblExportSelect);
+        add(lblFill);
     }
 }

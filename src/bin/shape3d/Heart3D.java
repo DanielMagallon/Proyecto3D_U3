@@ -307,7 +307,7 @@ public class Heart3D extends Shape3D
             figtemp[i][0]+=incXSup;
             figtemp[i][1]+=incYSup;
         }
-        view(g,figtemp, "Vista superior",25,60);
+        view(g,figtemp);
     }
 
     public void VistaLat(Graphics2D g) {
@@ -321,11 +321,10 @@ public class Heart3D extends Shape3D
             figtemp[i][1]+=incYLat;
 
         }
-        view(g,figtemp,"Vista Lateral",25,140);
+        view(g,figtemp);
     }
 
-    private void view(Graphics2D g, double[][] ft, String texto, int x, int y) {
-        g.drawString(texto, x, y);
+    private void view(Graphics2D g, double[][] ft) {
         for (int i = 0; i <= ft.length-1; i+=2) {
             g.drawLine((int)ft[i][0],(int) ft[i][1], (int)ft[i+1][0],(int)ft[i+1][1]);
         }

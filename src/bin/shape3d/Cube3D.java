@@ -72,45 +72,50 @@ public class Cube3D extends Shape3D
             put("D3",new double[]{15,45,-15});
             put("E3",new double[]{-15,45,15});
             put("F3",new double[]{15,45,15});
+
+            put("G3",new double[]{-15,-45,-15});
+            put("H3",new double[]{15,-45,-15});
+            put("I3",new double[]{-15,-45,15});
+            put("J3",new double[]{15,-45,15});
         }};
         initShape3D();
     }
 
     public void initShape3D(){
         copyShapeFace3DS = new Face3D[]{
-                new Face3D("Front Face00",new Color(0xF8F8F8),
+                new Face3D("Front Face00",new Color(0x41E75C),
                         new double[][]{
                         hashPoints.get("D"), hashPoints.get("J"), hashPoints.get("Q"), hashPoints.get("M")
                 }),
-                new Face3D("Front Face01",new Color(0xF8F8F8),
+                new Face3D("Front Face01",new Color(0x41E75C),
                         new double[][]{
                                 hashPoints.get("J"), hashPoints.get("K"), hashPoints.get("S"), hashPoints.get("Q")
                         }),
-                new Face3D("Front Face02",new Color(0xF8F8F8),
+                new Face3D("Front Face02",new Color(0x41E75C),
                         new double[][]{
                                 hashPoints.get("K"), hashPoints.get("C"), hashPoints.get("N"), hashPoints.get("S")
                         }),
-                new Face3D("Front Face10",new Color(0xF8F8F8),
+                new Face3D("Front Face10",new Color(0x41E75C),
                         new double[][]{
                                 hashPoints.get("M"), hashPoints.get("Q"), hashPoints.get("R"), hashPoints.get("O")
                         }),
-                new Face3D("Front Face11",new Color(0xF8F8F8),
+                new Face3D("Front Face11",new Color(0x41E75C),
                         new double[][]{
                                 hashPoints.get("Q"), hashPoints.get("S"), hashPoints.get("T"), hashPoints.get("R")
                         }),
-                new Face3D("Front Face12",new Color(0xF8F8F8),
+                new Face3D("Front Face12",new Color(0x41E75C),
                         new double[][]{
                                 hashPoints.get("S"), hashPoints.get("N"), hashPoints.get("P"), hashPoints.get("T")
                         }),
-                new Face3D("Front Face20",new Color(0xF8F8F8),
+                new Face3D("Front Face20",new Color(0x41E75C),
                         new double[][]{
                                 hashPoints.get("O"), hashPoints.get("R"), hashPoints.get("I"), hashPoints.get("A")
                         }),
-                new Face3D("Front Face21",new Color(0xF8F8F8),
+                new Face3D("Front Face21",new Color(0x41E75C),
                         new double[][]{
                                 hashPoints.get("R"), hashPoints.get("T"), hashPoints.get("L"), hashPoints.get("I")
                         }),
-                new Face3D("Front Face22",new Color(0xF8F8F8),
+                new Face3D("Front Face22",new Color(0x41E75C),
                         new double[][]{
                                 hashPoints.get("T"), hashPoints.get("P"), hashPoints.get("B"), hashPoints.get("L")
                         }),
@@ -154,41 +159,41 @@ public class Cube3D extends Shape3D
                         }),
 
 
-                new Face3D("Behind face00",new Color(0x9E45EC61, true),
+                new Face3D("Behind face00",new Color(0x205A8B),
                         new double[][]{
                         hashPoints.get("E"), hashPoints.get("E2"), hashPoints.get("H2"), hashPoints.get("G2")
                 }),
-                new Face3D("Behind face01",new Color(0x9E45EC61, true),
+                new Face3D("Behind face01",new Color(0x205A8B),
                         new double[][]{
                                 hashPoints.get("E2"), hashPoints.get("F2"), hashPoints.get("I2"), hashPoints.get("H2")
                         }),
-                new Face3D("Behind face02",new Color(0x9E45EC61, true),
+                new Face3D("Behind face02",new Color(0x205A8B),
                         new double[][]{
                                 hashPoints.get("F2"), hashPoints.get("F"), hashPoints.get("C2"), hashPoints.get("I2")
                         }),
 
-                new Face3D("Behind face10",new Color(0x9E45EC61, true),
+                new Face3D("Behind face10",new Color(0x205A8B),
                         new double[][]{
                                 hashPoints.get("G2"), hashPoints.get("H2"), hashPoints.get("L2"), hashPoints.get("K2")
                         }),
-                new Face3D("Behind face11",new Color(0x9E45EC61, true),
+                new Face3D("Behind face11",new Color(0x205A8B),
                         new double[][]{
                                 hashPoints.get("H2"), hashPoints.get("I2"), hashPoints.get("M2"), hashPoints.get("L2")
                         }),
-                new Face3D("Behind face12",new Color(0x9E45EC61, true),
+                new Face3D("Behind face12",new Color(0x205A8B),
                         new double[][]{
                                 hashPoints.get("I2"), hashPoints.get("C2"), hashPoints.get("D2"), hashPoints.get("M2")
                         }),
 
-                new Face3D("Behind face20",new Color(0x9E45EC61, true),
+                new Face3D("Behind face20",new Color(0x205A8B),
                         new double[][]{
                                 hashPoints.get("K2"), hashPoints.get("L2"), hashPoints.get("O2"), hashPoints.get("H")
                         }),
-                new Face3D("Behind face21",new Color(0x9E45EC61, true),
+                new Face3D("Behind face21",new Color(0x205A8B),
                         new double[][]{
                                 hashPoints.get("L2"), hashPoints.get("M2"), hashPoints.get("P2"), hashPoints.get("O2")
                         }),
-                new Face3D("Behind face22",new Color(0x9E45EC61, true),
+                new Face3D("Behind face22",new Color(0x205A8B),
                         new double[][]{
                                 hashPoints.get("M2"), hashPoints.get("D2"), hashPoints.get("G"), hashPoints.get("P2")
                         }),
@@ -247,13 +252,70 @@ public class Cube3D extends Shape3D
                                 hashPoints.get("F2"), hashPoints.get("F"), hashPoints.get("V"), hashPoints.get("D3")
                         }),
 
-                new Face3D("Bottom face",new Color(0xFFF6F6),
+                new Face3D("Top face10",new Color(0xE8DB12),
                         new double[][]{
-                        hashPoints.get("A"),
-                        hashPoints.get("B"),
-                        hashPoints.get("G"),
-                        hashPoints.get("H")
+                                hashPoints.get("R2"), hashPoints.get("C3"), hashPoints.get("E3"), hashPoints.get("Q2")
+                        }),
+                new Face3D("Top face11",new Color(0xE8DB12),
+                        new double[][]{
+                                hashPoints.get("C3"), hashPoints.get("D3"), hashPoints.get("F3"), hashPoints.get("E3")
+                        }),
+                new Face3D("Top face12",new Color(0xE8DB12),
+                        new double[][]{
+                                hashPoints.get("D3"), hashPoints.get("V"), hashPoints.get("U"), hashPoints.get("F3")
+                        }),
+
+                new Face3D("Top face20",new Color(0xE8DB12),
+                        new double[][]{
+                                hashPoints.get("Q2"), hashPoints.get("E3"), hashPoints.get("J"), hashPoints.get("D")
+                        }),
+                new Face3D("Top face21",new Color(0xE8DB12),
+                        new double[][]{
+                                hashPoints.get("E3"), hashPoints.get("F3"), hashPoints.get("K"), hashPoints.get("J")
+                        }),
+                new Face3D("Top face22",new Color(0xE8DB12),
+                        new double[][]{
+                                hashPoints.get("F3"), hashPoints.get("U"), hashPoints.get("C"), hashPoints.get("K")
+                        }),
+
+
+                new Face3D("Bottom face00",new Color(0xFFF6F6),
+                        new double[][]{
+                        hashPoints.get("H"), hashPoints.get("O2"), hashPoints.get("G3"), hashPoints.get("B3")
                 }),
+                new Face3D("Bottom face01",new Color(0xFFF6F6),
+                        new double[][]{
+                                hashPoints.get("O2"), hashPoints.get("P2"), hashPoints.get("H3"), hashPoints.get("G3")
+                        }),
+                new Face3D("Bottom face02",new Color(0xFFF6F6),
+                        new double[][]{
+                                hashPoints.get("P2"), hashPoints.get("G"), hashPoints.get("B2"), hashPoints.get("H3")
+                        }),
+                new Face3D("Bottom face10",new Color(0xFFF6F6),
+                        new double[][]{
+                                hashPoints.get("B3"), hashPoints.get("G3"), hashPoints.get("I3"), hashPoints.get("A3")
+                        }),
+                new Face3D("Bottom face11",new Color(0xFFF6F6),
+                        new double[][]{
+                                hashPoints.get("G3"), hashPoints.get("H3"), hashPoints.get("J3"), hashPoints.get("I3")
+                        }),
+                new Face3D("Bottom face12",new Color(0xFFF6F6),
+                        new double[][]{
+                                hashPoints.get("H3"), hashPoints.get("B2"), hashPoints.get("A2"), hashPoints.get("J3")
+                        }),
+
+                new Face3D("Bottom face20",new Color(0xFFF6F6),
+                        new double[][]{
+                                hashPoints.get("A3"), hashPoints.get("I3"), hashPoints.get("I"), hashPoints.get("A")
+                        }),
+                new Face3D("Bottom face21",new Color(0xFFF6F6),
+                        new double[][]{
+                                hashPoints.get("I3"), hashPoints.get("J3"), hashPoints.get("L"), hashPoints.get("I")
+                        }),
+                new Face3D("Bottom face22",new Color(0xFFF6F6),
+                        new double[][]{
+                                hashPoints.get("J3"), hashPoints.get("A2"), hashPoints.get("B"), hashPoints.get("L")
+                        }),
         };
     }
 }
