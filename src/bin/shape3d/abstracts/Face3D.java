@@ -8,17 +8,22 @@ import java.util.ArrayList;
 public class Face3D
 {
     public String name;
-    public double[][] originalPoints3D, points3D;
-    private Color bg_color;
+    public double[][] originalPoints3D, points3D,reset3D;
+    public Color bg_color;
+    public boolean fillFace =true;
+
     public Face3D(String name,Color bg, double[][] points3D)
     {
         this.bg_color = bg;
         this.name = name;
-        this.originalPoints3D = points3D;
+        this.reset3D = points3D;
+        this.originalPoints3D = new double[points3D.length][];
         this.points3D = new double[points3D.length][];
         for (int i = 0; i < this.points3D.length; i++) {
             this.points3D[i] = new double[points3D[i].length];
+            this.originalPoints3D[i] = new double[points3D[i].length];
             System.arraycopy(points3D[i],0,this.points3D[i],0,points3D[i].length);
+            System.arraycopy(points3D[i],0,this.originalPoints3D[i],0,points3D[i].length);
         }
 
     }
@@ -54,12 +59,36 @@ public class Face3D
         }
     }
 
+    protected void reflectX(){
+        for (int i = 0; i <points3D.length; i++) {
+            originalPoints3D[i][1]=points3D[i][1]*=-1;
+            originalPoints3D[i][2]=points3D[i][2]*=-1;
+
+        }
+    }
+
+    protected void reflectY(){
+        for (int i = 0; i <points3D.length; i++) {
+            originalPoints3D[i][0]=points3D[i][0]*=-1;
+            originalPoints3D[i][2]=points3D[i][2]*=-1;
+
+        }
+    }
+
+    protected void reflectZ(){
+        for (int i = 0; i <points3D.length; i++) {
+            originalPoints3D[i][1]=points3D[i][1]*=-1;
+            originalPoints3D[i][0]=points3D[i][0]*=-1;
+
+        }
+    }
+
     public static boolean filled=true;
 
     public void drawFace(Graphics2D g2){
         g2.setColor(AppProps.CANVAS_STROKE);
         g2.drawPolygon(xPts,yPts,xPts.length);
-        if(filled) {
+        if(filled && fillFace) {
             g2.setColor(this.bg_color);
             g2.fillPolygon(xPts, yPts, xPts.length);
         }
@@ -93,6 +122,12 @@ public class Face3D
         }
     }
 
+    public void reset(){
+        for (int i = 0; i < reset3D.length; i++) {
+            System.arraycopy(reset3D[i],0,this.points3D[i],0,reset3D[i].length);
+            System.arraycopy(reset3D[i],0,this.originalPoints3D[i],0,reset3D[i].length);
+        }
+    }
 
 //    @Override
 //    protected Face3D clone() {

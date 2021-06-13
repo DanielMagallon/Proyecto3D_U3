@@ -23,7 +23,16 @@ public class Escalamiento extends  PanelItem implements ChangeListener
 
     @Override
     public void stateChanged(ChangeEvent changeEvent) {
-        abstractShape3D.setDistance(jScale.getValue());
-        canvas3D.repaint();
+        if(update) {
+            abstractShape3D.setDistance(jScale.getValue());
+            canvas3D.repaint();
+        }
+    }
+
+    private boolean update=true;
+    public void updateScaleValue(){
+        update=false;
+        jScale.setValue(abstractShape3D.getDistance());
+        update=true;
     }
 }

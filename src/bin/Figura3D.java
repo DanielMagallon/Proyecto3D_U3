@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 public class Figura3D {
 
+        public boolean fill=true;
 		double Fig3D[][];
 		double Fig2D[][];
 		int distancia= 1000;
@@ -44,10 +45,6 @@ public class Figura3D {
         }
     }
 
-		public Figura3D() {
-
-
-		}
 		public void conv2D() {
 			//cx=(d*x)/(z+mz)
 			//cy=(d*y)/(z+mz)

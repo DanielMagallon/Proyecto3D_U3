@@ -1,5 +1,6 @@
 package bin.shape3d;
 
+import bin.handlers.IFaceHandler;
 import bin.shape3d.abstracts.Face3D;
 import bin.shape3d.abstracts.Shape3D;
 
@@ -9,8 +10,9 @@ import java.util.HashMap;
 public class Cube3D extends Shape3D
 {
 
-    public Cube3D()
+    public Cube3D(IFaceHandler callback)
     {
+        super(callback);
         hashPoints = new HashMap<String,double[]>(){{
             put("A",new double[]{-45,-45,45});
             put("B",new double[]{45,-45,45});
@@ -317,5 +319,7 @@ public class Cube3D extends Shape3D
                                 hashPoints.get("J3"), hashPoints.get("A2"), hashPoints.get("B"), hashPoints.get("L")
                         }),
         };
+
+        initPanelFaces();
     }
 }

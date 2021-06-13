@@ -33,11 +33,11 @@ public class AppProps
     {
         JLabel lbl = new JLabel(text);
         lbl.setCursor(handCursor);
+        lbl.setHorizontalAlignment(JLabel.CENTER);
         lbl.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent mouseEvent) {
                 handler.run();
-                System.out.println(text);
             }
         });
         lbl.setForeground(FG_NORMAL_TEXT);

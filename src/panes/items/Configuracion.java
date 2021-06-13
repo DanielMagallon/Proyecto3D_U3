@@ -16,11 +16,11 @@ import static main.Run.*;
 
 public class Configuracion extends PanelItem
 {
-    private JLabel lblExportAll,lblExportSelect,lblFill;
-
     public Configuracion()
     {
-        super();
+        super(1,10);
+        JLabel lblExportAll,lblExportSelect,lblFill,lblReset;
+
         lblExportAll = AppProps.createLabelFor("Exportar a imagen",()->{
             try {
                 exportImage=true;
@@ -41,8 +41,18 @@ public class Configuracion extends PanelItem
             canvas3D.repaint();
         });
 
+        lblReset = AppProps.createLabelFor("Restaurar",()->{
+            abstractShape3D.setXAngulo(0);
+            abstractShape3D.setYAngulo(0);
+            abstractShape3D.setZAngulo(0);
+            panelRotacion.updateShapeValues();
+            abstractShape3D.reset();
+            canvas3D.repaint();
+        });
+
         add(lblExportAll);
         add(lblExportSelect);
         add(lblFill);
+        add(lblReset);
     }
 }

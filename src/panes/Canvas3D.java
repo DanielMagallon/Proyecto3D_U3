@@ -27,12 +27,15 @@ public class Canvas3D extends JPanel
         setBorder(titledBorder);
         setBackground(AppProps.CANVAS_BG);
         selecctionListener = new SelecctionListener(this,()->exportImage=false,()->{
-            exportImage=true;
 
-            canvas3D.selecctionListener.exporSelection=true;
-            canvas3D.setCursor(AppProps.areaSelect);
-            bufferedImage = new BufferedImage(canvas3D.getWidth(),
-                    canvas3D.getHeight(), BufferedImage.TYPE_INT_RGB);
+            if(!showViews) {
+                exportImage = true;
+
+                canvas3D.selecctionListener.exporSelection = true;
+                canvas3D.setCursor(AppProps.areaSelect);
+                bufferedImage = new BufferedImage(canvas3D.getWidth(),
+                        canvas3D.getHeight(), BufferedImage.TYPE_INT_RGB);
+            }
         });
 
         AppProps.setActionPanel("RX-",this, KeyEvent.VK_X, InputEvent.CTRL_MASK,

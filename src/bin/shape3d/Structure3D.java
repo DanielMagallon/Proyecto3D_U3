@@ -1,5 +1,6 @@
 package bin.shape3d;
 
+import bin.handlers.IFaceHandler;
 import bin.shape3d.abstracts.Face3D;
 import bin.shape3d.abstracts.Shape3D;
 
@@ -11,8 +12,9 @@ public class Structure3D extends Shape3D
 
     public Color default1=new Color(0xF6B62A),default2=new Color(0xE5D12D);
 
-    public Structure3D()
+    public Structure3D(IFaceHandler callback)
     {
+        super(callback);
         hashPoints = new HashMap<String,double[]>(){{
             put("A",new double[]{30,-45,90});
             put("B",new double[]{-30,-45,90});
@@ -321,9 +323,7 @@ public class Structure3D extends Shape3D
                                 hashPoints.get("A'"),
                                 hashPoints.get("Nn'"),
                         }),
-
-
-
         };
+        initPanelFaces();
     }
 }

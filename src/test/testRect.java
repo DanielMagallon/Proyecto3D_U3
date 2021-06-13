@@ -19,20 +19,15 @@ public class testRect
 
     public static void main(String[] args) {
 
-        HashMap<String,double[]> d = new HashMap<String,double[]>(){{
-            put("A",new double[]{10,20,30});
-        }};
+        double matriz[][]   = {
+                {10,100,1000},
+                {20,200,2000}
+        };
 
-        double [][]  de = new double[1][3];
-        de[0] = d.get("A").clone();
-
-        System.out.println(Arrays.toString(d.get("A")));
-        System.out.println(Arrays.toString(de[0]));
-
-        de[0][1] = 450;
-
-        System.out.println(Arrays.toString(d.get("A")));
-        System.out.println(Arrays.toString(de[0]));
+        double[][] m2 = matriz.clone();
+        m2[0] = new double[]{-11,-111};
+        System.out.println(Arrays.toString(matriz[0]));
+        System.out.println(Arrays.toString(m2[0]));
 
 //        SwingUtilities.invokeLater(()->{
 //            JPanel panel = new JPanel();

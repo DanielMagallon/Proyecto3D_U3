@@ -1,8 +1,6 @@
 package modals;
 
 import bin.SaveImage;
-import bin.handlers.IName;
-import frame.DefaultFrame;
 import static_props.AppProps;
 
 import javax.swing.*;

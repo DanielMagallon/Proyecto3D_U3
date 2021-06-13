@@ -14,27 +14,33 @@ public class ChosseShape extends PanelItem
     {
         lblCubo = AppProps.createLabelFor("Cubo",()->{
             Run.abstractShape3D = Run.cube3D;
-            if(!Run.showViews)
-            Run.canvas3D.repaint();
-            else Run.Canvasvistas.repaint();
+            updateShape();
         });
 
         lblCorazon = AppProps.createLabelFor("Corazon",()->{
             Run.abstractShape3D = Run.heart3D;
-            if(!Run.showViews)
-                Run.canvas3D.repaint();
-            else Run.Canvasvistas.repaint();
+            updateShape();
         });
 
         lblStruct = AppProps.createLabelFor("Estructura",()->{
             Run.abstractShape3D = Run.structure3D;
-            if(!Run.showViews)
-                Run.canvas3D.repaint();
-            else Run.Canvasvistas.repaint();
+            updateShape();
         });
 
         add(lblCubo);
         add(lblCorazon);
         add(lblStruct);
+    }
+
+    private void updateShape(){
+        Run.panelRotacion.updateShapeValues();
+        Run.escalamiento.updateScaleValue();
+        Run.caras.updateFaces();
+        if(!Run.showViews)
+            Run.canvas3D.repaint();
+        else Run.Canvasvistas.repaint();
+        if(!Run.faceProperties.closed){
+            Run.faceProperties.close();
+        }
     }
 }

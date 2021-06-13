@@ -1,5 +1,6 @@
 package panes.items;
 
+import main.Run;
 import panes.PanelItem;
 import static_props.AppProps;
 
@@ -8,18 +9,15 @@ import java.awt.*;
 
 public class Caras extends PanelItem
 {
-    private JPanel contentScroll;
-
-    public Caras(int w, int h)
+    public Caras()
     {
         super(1,1);
-        contentScroll = new JPanel();
-        contentScroll.setBackground(AppProps.BG_SELECTED);
-        contentScroll.setPreferredSize(new Dimension(w,h));
-        JScrollPane sc = new JScrollPane(contentScroll);
-        sc.setBorder(BorderFactory.createEmptyBorder());
-        sc.setOpaque(false);
-        this.add(sc);
     }
 
+    public void updateFaces(){
+        this.removeAll();
+        this.add(Run.abstractShape3D.getPanelFaces());
+        this.validate();
+        this.repaint();
+    }
 }

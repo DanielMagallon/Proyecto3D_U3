@@ -1,15 +1,44 @@
 package bin.shape3d.abstracts;
 
+import bin.handlers.IFaceHandler;
+import static_props.AppProps;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-
-import static_props.AppProps;
 
 public abstract class Shape3D implements AbstractShape3D
 {
     protected HashMap<String,double[]> hashPoints;
     protected   Face3D[]  copyShapeFace3DS;
     protected int distance=1000,mz=-350, despx =400, despy =300;
+    protected JScrollPane sc;
+    private int xAngulo,yAngulo,zAngulo;
+    private IFaceHandler callback;
+
+    public Shape3D(IFaceHandler callback)
+    {
+        this.callback = callback;
+    }
+
+    @Override
+    public JScrollPane getPanelFaces() {
+        return sc;
+    }
+
+    protected void initPanelFaces(){
+        JPanel content = new JPanel();
+        content.setBackground(AppProps.BG_SELECTED);
+        content.setLayout(new GridLayout(1,copyShapeFace3DS.length));
+        content.setPreferredSize(new Dimension(copyShapeFace3DS.length*200,50));
+        sc = new JScrollPane(content);
+        sc.setBorder(BorderFactory.createEmptyBorder());
+        sc.setOpaque(false);
+
+        for (Face3D copyShapeFace3D : copyShapeFace3DS) {
+            content.add(AppProps.createLabelFor(copyShapeFace3D.name,()->callback.facecallback(copyShapeFace3D)));
+        }
+    }
 
     @Override
     public void draw(Graphics2D g2)
@@ -36,7 +65,27 @@ public abstract class Shape3D implements AbstractShape3D
         for (Face3D copyShapeFace3D : copyShapeFace3DS) {
             copyShapeFace3D.scale(factor);
         }
+    }
 
+    @Override
+    public void reflectX() {
+        for (Face3D copyShapeFace3D : copyShapeFace3DS) {
+            copyShapeFace3D.reflectX();
+        }
+    }
+
+    @Override
+    public void reflectY() {
+        for (Face3D copyShapeFace3D : copyShapeFace3DS) {
+            copyShapeFace3D.reflectY();
+        }
+    }
+
+    @Override
+    public void reflectZ() {
+        for (Face3D copyShapeFace3D : copyShapeFace3DS) {
+            copyShapeFace3D.reflectZ();
+        }
     }
 
     @Override
@@ -54,6 +103,36 @@ public abstract class Shape3D implements AbstractShape3D
     @Override
     public void setMz(int mz) {
         this.mz = mz;
+    }
+
+    @Override
+    public void setXAngulo(int xAngulo) {
+        this.xAngulo = xAngulo;
+    }
+
+    @Override
+    public void setYAngulo(int yAngulo) {
+        this.yAngulo = yAngulo;
+    }
+
+    @Override
+    public void setZAngulo(int zAngulo) {
+        this.zAngulo = zAngulo;
+    }
+
+    @Override
+    public int getXAngulo() {
+        return xAngulo;
+    }
+
+    @Override
+    public int getYAngulo() {
+        return yAngulo;
+    }
+
+    @Override
+    public int getZAngulo() {
+        return zAngulo;
     }
 
     @Override
@@ -188,11 +267,19 @@ public abstract class Shape3D implements AbstractShape3D
     }
 
     @Override
+    public void reset() {
+        for (Face3D copyShapeFace3D : copyShapeFace3DS) {
+            copyShapeFace3D.reset();
+        }
+    }
+
+    @Override
     public void mover(int cx, int cy) {
         despx=cx;
         despy=cy;
     }
 
+    @Override
     public int getDistance() {
         return distance;
     }

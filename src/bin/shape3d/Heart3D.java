@@ -1,5 +1,6 @@
 package bin.shape3d;
 
+import bin.handlers.IFaceHandler;
 import bin.shape3d.abstracts.Face3D;
 import bin.shape3d.abstracts.Shape3D;
 import static_props.AppProps;
@@ -22,10 +23,11 @@ public class Heart3D extends Shape3D
                     "2N1", "Nn1", "2Nn1", "O1", "2O1", "P1", "2P1"
             };
 
-    private double[][] unions3D, originalPoints3D, unions2D;
+    private double[][] unions3D, originalPoints3D, resetUn3D, unions2D;
 
-    public Heart3D()
+    public Heart3D(IFaceHandler callback)
     {
+        super(callback);
         hashPoints = new HashMap<String,double[]>(){{
             put("A",new double[]{5,40,20});
             put("B",new double[]{5,50,20});
@@ -127,10 +129,12 @@ public class Heart3D extends Shape3D
         unions3D = new double[sequence.length][3];
         originalPoints3D = new double[sequence.length][3];
         unions2D = new double[sequence.length][2];
+        resetUn3D = new double[sequence.length][3];
 
         int i=0;
         for (String s : sequence) {
             unions3D[i] = hashPoints.get(s).clone();
+            resetUn3D[i] = hashPoints.get(s).clone();
             originalPoints3D[i++] = hashPoints.get(s).clone();
         }
     }
@@ -243,6 +247,8 @@ public class Heart3D extends Shape3D
                                 hashPoints.get("2A"),
                         }),
         };
+
+        initPanelFaces();
     }
 
     @Override
@@ -263,9 +269,9 @@ public class Heart3D extends Shape3D
     public void scale(double factor) {
         super.scale(factor);
         for (int i = 0; i <unions3D.length; i++) {
-            unions3D[i][0]=unions3D[i][0]*=factor;
-            unions3D[i][1]=unions3D[i][1]*=factor;
-            unions3D[i][2]=unions3D[i][2]*=factor;
+            unions3D[i][0]*=factor;
+            unions3D[i][1]*=factor;
+            unions3D[i][2]*=factor;
         }
     }
 
@@ -347,6 +353,15 @@ public class Heart3D extends Shape3D
         }
         return vt;
 
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        for (int i = 0; i < resetUn3D.length; i++) {
+            System.arraycopy(resetUn3D[i],0,this.unions3D[i],0,resetUn3D[i].length);
+            System.arraycopy(resetUn3D[i],0,this.originalPoints3D[i],0,resetUn3D[i].length);
+        }
     }
 
     private double[][] rotaciony(int gardos) {

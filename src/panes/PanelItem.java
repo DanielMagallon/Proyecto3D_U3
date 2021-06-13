@@ -13,6 +13,10 @@ public abstract class PanelItem extends JPanel
         setLayout(new FlowLayout(FlowLayout.CENTER));
     }
 
+    public PanelItem(LayoutManager layoutManager) {
+        setLayout(layoutManager);
+    }
+
     public PanelItem(int r, int c)
     {
         setBackground(AppProps.BG_SELECTED);

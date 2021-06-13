@@ -1,13 +1,16 @@
 package main;
 
+import bin.handlers.IFaceHandler;
 import bin.shape3d.Cube3D;
 import bin.shape3d.Heart3D;
 import bin.shape3d.Structure3D;
 import bin.shape3d.abstracts.AbstractShape3D;
+import bin.shape3d.abstracts.Face3D;
 import frame.DefaultFrame;
 import modals.NotifyImage;
 import panes.Canvas3D;
 import panes.Canvasvistas;
+import panes.FaceProperties;
 import panes.PanelItem;
 import panes.items.*;
 import panes.menu.PanelMenu;
@@ -20,7 +23,7 @@ import java.awt.image.BufferedImage;
 
 public class Run
 {
-    private static DefaultFrame frame;
+    public static DefaultFrame frame;
     private static JPanel panelMenus, panelMenuItem;
 
     public static Canvas3D canvas3D;
@@ -37,6 +40,10 @@ public class Run
     public static Heart3D heart3D;
     public static Structure3D structure3D;
     public static Rotacion panelRotacion = new Rotacion();
+    public static Escalamiento escalamiento = new Escalamiento();
+    public static Caras caras = new Caras();
+    public static FaceProperties faceProperties = new FaceProperties();
+
     public static JLabel seleccionpane=new JLabel("Ver vistas");
 
     static void initPanelItems(){
@@ -44,8 +51,6 @@ public class Run
             setOpaque(false);
         }};
 
-        Caras caras = new Caras(1500,0);
-        Escalamiento escalamiento = new Escalamiento();
         Reflexion reflexion = new Reflexion();
         Configuracion configuracion = new Configuracion();
         ChosseShape chosseShape = new ChosseShape();
@@ -64,17 +69,15 @@ public class Run
                     seleccionpane.setForeground(AppProps.BG_CONTORNO);
                     frame.getContentPane().remove(canvas3D);
                     frame.getContentPane().add(Canvasvistas);
-                    frame.getContentPane().validate();
-                    frame.getContentPane().repaint();
                 }else {
                     seleccionpane.setText("Ver vistas");
                     seleccionpane.setForeground(Color.black);
                     frame.getContentPane().remove(Canvasvistas);
                     frame.getContentPane().add(canvas3D);
-                    frame.getContentPane().validate();
-                    frame.getContentPane().repaint();
 
                 }
+                frame.getContentPane().validate();
+                frame.getContentPane().repaint();
                 showViews=!showViews;
             }
         });
@@ -106,7 +109,6 @@ public class Run
         Canvasvistas = new Canvasvistas();
 
 
-
         frame.getContentPane().add(canvas3D);
 
 //        help = new Help(frame,true);
@@ -130,14 +132,27 @@ public class Run
         notifyImage = new NotifyImage(frame);
         frame.setVisible(true);
         {
-            cube3D = new Cube3D();
-            heart3D = new Heart3D();
-            structure3D = new Structure3D();
+            cube3D = new Cube3D(Run::handler);
+            heart3D = new Heart3D(Run::handler);
+            structure3D = new Structure3D(Run::handler);
             abstractShape3D = cube3D;
         }
+        caras.updateFaces();
         canvas3D.requestFocus();
         
    
+    }
+
+    static void handler(Face3D face3D)
+    {
+        if(faceProperties.closed) {
+            frame.getContentPane().add(faceProperties, "East");
+        }else{
+            faceProperties.updateProps();
+        }
+        faceProperties.showFaceProps(face3D);
+        frame.getContentPane().validate();
+        frame.getContentPane().repaint();
     }
 
     public static void main(String[] args) {

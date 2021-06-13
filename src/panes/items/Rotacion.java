@@ -1,5 +1,6 @@
 package panes.items;
 
+import main.Run;
 import panes.PanelItem;
 import static_props.AppProps;
 
@@ -49,14 +50,28 @@ public class Rotacion extends PanelItem implements ChangeListener
         }
         val += (positive ? 10 : -10);
         master.setValue(val);
-        abstractShape3D.rotacionXYZH(s1.getValue(), s2.getValue(),s3.getValue());
-
     }
+
+    public boolean updateItems=true;
 
     @Override
     public void stateChanged(ChangeEvent changeEvent)
     {
-        abstractShape3D.rotacionXYZH(s1.getValue(),s2.getValue(),s3.getValue());
-        canvas3D.repaint();
+        if(updateItems) {
+            abstractShape3D.setXAngulo(s1.getValue());
+            abstractShape3D.setYAngulo(s2.getValue());
+            abstractShape3D.setZAngulo(s3.getValue());
+            abstractShape3D.rotacionXYZH(s1.getValue(), s2.getValue(), s3.getValue());
+            canvas3D.repaint();
+        }
+    }
+
+    public void updateShapeValues(){
+
+        updateItems=false;
+        s1.setValue(abstractShape3D.getXAngulo());
+        s2.setValue(abstractShape3D.getYAngulo());
+        s3.setValue(abstractShape3D.getZAngulo());
+        updateItems=true;
     }
 }
