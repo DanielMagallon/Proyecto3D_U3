@@ -99,7 +99,7 @@ public class Run
             cube3D = new Cube3D();
             heart3D = new Heart3D();
             structure3D = new Structure3D();
-            abstractShape3D = structure3D;
+            abstractShape3D = cube3D;
         }
         canvas3D.requestFocus();
     }
