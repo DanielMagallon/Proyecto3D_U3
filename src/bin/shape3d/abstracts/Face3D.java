@@ -60,6 +60,12 @@ public class Face3D
         g2.setColor(this.bg_color);
         g2.fillPolygon(xPts,yPts,xPts.length);
     }
+    
+    public void setcolor(Graphics2D g2){
+       
+        g2.setColor(this.bg_color);
+ 
+    }
 
     public void rotate(int grx, int gry, int grz){
         double gradosRadx=Math.toRadians(grx);

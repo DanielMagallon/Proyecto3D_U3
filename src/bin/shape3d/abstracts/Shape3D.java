@@ -3,6 +3,8 @@ package bin.shape3d.abstracts;
 import java.awt.*;
 import java.util.HashMap;
 
+import static_props.AppProps;
+
 public abstract class Shape3D implements AbstractShape3D
 {
     protected HashMap<String,double[]> hashPoints;
@@ -15,6 +17,12 @@ public abstract class Shape3D implements AbstractShape3D
         g2.setStroke(new BasicStroke(2f));
         for (Face3D copyShapeFace3D : copyShapeFace3DS) copyShapeFace3D.drawFace(g2);
     }
+    
+    public void setcolor(Graphics2D g2) {
+    	g2.setStroke(new BasicStroke(2f));
+        for (Face3D copyShapeFace3D : copyShapeFace3DS) copyShapeFace3D.setcolor(g2);
+    }
+   
 
     @Override
     public void conv2D() {
@@ -75,18 +83,18 @@ public abstract class Shape3D implements AbstractShape3D
         return false;
     }
 
-    public int incXSup=70,incYSup=100,incXLat=70,incYLat=230,incXFro=70,incYFro=370;
+    public int incXSup=300,incYSup=300,incXLat=600,incYLat=300,incXFro=900,incYFro=300;
     public void VistaSup(Graphics2D g) {
         for (Face3D copyShapeFace3D : copyShapeFace3DS) {
             double[][] figtemp =rotacionxt(90,copyShapeFace3D);
-
             //eliminamos la profundidad
             for(int i=0;i<figtemp.length;i++) {
                 figtemp[i][2]=0;
                 figtemp[i][0]+=incXSup;
                 figtemp[i][1]+=incYSup;
             }
-            this.dibujarVista(g,figtemp, "Vista superior",25,60);
+            this.dibujarVista(g,figtemp, "Vista superior",280,200);
+            
         }
     }
 
@@ -102,7 +110,7 @@ public abstract class Shape3D implements AbstractShape3D
                 figtemp[i][1]+=incYLat;
 
             }
-            this.dibujarVista(g,figtemp,"Vista Lateral",25,140);
+            this.dibujarVista(g,figtemp,"Vista Lateral",580,200);
         }
 
     }
@@ -121,7 +129,7 @@ public abstract class Shape3D implements AbstractShape3D
                 figtemp[i][1]+=incYFro;
 
             }
-            this.dibujarVista(g,figtemp,"Vista Frontal",25,240);
+            this.dibujarVista(g,figtemp,"Vista Frontal",880,200);
         }
 
 
