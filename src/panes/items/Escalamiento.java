@@ -17,7 +17,7 @@ public class Escalamiento extends  PanelItem implements ChangeListener
     public Escalamiento()
     {
         super(1,1);
-        jScale = AppProps.addRotationItem("Escalar figura",this,this,
+        jScale = AppProps.addSlider("Escalar figura",this,this,
                         100,2300,1000,50,100 );
     }
 

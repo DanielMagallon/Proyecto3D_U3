@@ -56,8 +56,8 @@ public class AppProps
         panel.getActionMap().put(KEY, event);
     }
 
-    public static JSlider addRotationItem(String title, ChangeListener handler, PanelItem p,int min, int max, int val,
-                                          int minorTickS,int majorTickS)
+    public static JSlider addSlider(String title, ChangeListener handler, JPanel p, int min, int max, int val,
+                                    int minorTickS, int majorTickS)
     {
         JPanel ps1=new JPanel(new GridLayout(1,1));
         ps1.setOpaque(false);

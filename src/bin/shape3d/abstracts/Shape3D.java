@@ -5,6 +5,8 @@ import static_props.AppProps;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 public abstract class Shape3D implements AbstractShape3D
@@ -15,6 +17,8 @@ public abstract class Shape3D implements AbstractShape3D
     protected JScrollPane sc;
     private int xAngulo,yAngulo,zAngulo;
     private IFaceHandler callback;
+
+    private JLabel lblChossed;
 
     public Shape3D(IFaceHandler callback)
     {
@@ -36,7 +40,19 @@ public abstract class Shape3D implements AbstractShape3D
         sc.setOpaque(false);
 
         for (Face3D copyShapeFace3D : copyShapeFace3DS) {
-            content.add(AppProps.createLabelFor(copyShapeFace3D.name,()->callback.facecallback(copyShapeFace3D)));
+
+            JLabel lbl = AppProps.createLabelFor(copyShapeFace3D.name,()->callback.facecallback(copyShapeFace3D));
+            lbl.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent mouseEvent) {
+                    if(lblChossed!=null){
+                        lblChossed.setForeground(AppProps.FG_NORMAL_TEXT);
+                    }
+                    lblChossed = (JLabel) mouseEvent.getComponent();
+                    lblChossed.setForeground(AppProps.BG_CONTORNO);
+                }
+            });
+            content.add(lbl);
         }
     }
 

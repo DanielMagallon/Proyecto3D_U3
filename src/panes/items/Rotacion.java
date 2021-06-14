@@ -17,11 +17,11 @@ public class Rotacion extends PanelItem implements ChangeListener
     public Rotacion()
     {
         super();
-        s1=AppProps.addRotationItem("Rotacion en eje X",this,this,
+        s1=AppProps.addSlider("Rotacion en eje X",this,this,
                             0,350,0,10,60);
-        s2=AppProps.addRotationItem("Rotacion en eje Y",this,this,
+        s2=AppProps.addSlider("Rotacion en eje Y",this,this,
                         0,350,0,10,60);
-        s3=AppProps.addRotationItem("Rotacion en eje Z",this,this,
+        s3=AppProps.addSlider("Rotacion en eje Z",this,this,
                         0,350,0,10,60);
     }
 

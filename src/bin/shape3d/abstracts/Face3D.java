@@ -1,16 +1,23 @@
 package bin.shape3d.abstracts;
 
+import bin.shape3d.FaceFill;
 import static_props.AppProps;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Face3D
 {
     public String name;
     public double[][] originalPoints3D, points3D,reset3D;
-    public Color bg_color;
-    public boolean fillFace =true;
+    public Color bg_color,gradient1=Color.red,gradient2=Color.cyan;
+    public FaceFill fillFace =  FaceFill.NORMAL;
+    private GradientPaint gradientPaint;
+    private TexturePaint texturePaint;
+    public ImageIcon image;
 
     public Face3D(String name,Color bg, double[][] points3D)
     {
@@ -85,12 +92,41 @@ public class Face3D
 
     public static boolean filled=true;
 
+    public void updateColorsGradient(boolean c1,Color c){
+        if(c1) gradient1 = c;
+        else gradient2 = c;
+    }
+
+    public void setTexturePaint(int x, int y, int w, int h, BufferedImage bf){
+        image = new ImageIcon(bf.getScaledInstance(100,100,Image.SCALE_REPLICATE));
+        texturePaint = new TexturePaint(bf,new Rectangle2D.Double(x,y,w,h));
+    }
+
+    public void updateGradient(float fx,float fy,float tx,float ty){
+        gradientPaint = new GradientPaint(fx,fy,gradient1,tx,ty,gradient2,true);
+    }
+
     public void drawFace(Graphics2D g2){
         g2.setColor(AppProps.CANVAS_STROKE);
         g2.drawPolygon(xPts,yPts,xPts.length);
-        if(filled && fillFace) {
-            g2.setColor(this.bg_color);
-            g2.fillPolygon(xPts, yPts, xPts.length);
+        if(filled)
+        {
+            switch (fillFace){
+                case NORMAL:
+                    g2.setColor(this.bg_color);
+                    g2.fillPolygon(xPts, yPts, xPts.length);
+                    break;
+
+                case GRADIENT:
+                    g2.setPaint(gradientPaint);
+                    g2.fillPolygon(xPts, yPts, xPts.length);
+                    break;
+
+                case IMAGE:
+                    g2.setPaint(texturePaint);
+                    g2.fillPolygon(xPts, yPts, xPts.length);
+                    break;
+            }
         }
     }
     
