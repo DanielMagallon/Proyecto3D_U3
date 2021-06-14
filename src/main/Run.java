@@ -7,6 +7,7 @@ import bin.shape3d.Structure3D;
 import bin.shape3d.abstracts.AbstractShape3D;
 import bin.shape3d.abstracts.Face3D;
 import frame.DefaultFrame;
+import modals.*;
 import modals.NotifyImage;
 import panes.Canvas3D;
 import panes.Canvasvistas;
@@ -17,6 +18,9 @@ import panes.menu.PanelMenu;
 import static_props.AppProps;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -25,7 +29,8 @@ public class Run
 {
     public static DefaultFrame frame;
     private static JPanel panelMenus, panelMenuItem;
-
+    private static Help modalHelp;
+    private static Autores modalAutor;
     public static Canvas3D canvas3D;
     public  static Canvasvistas Canvasvistas;
 //    public static Figura3D figura3D;
@@ -45,6 +50,8 @@ public class Run
     public static FaceProperties faceProperties = new FaceProperties();
 
     public static JLabel seleccionpane=new JLabel("Ver vistas");
+    public static JLabel seleccionayuda=new JLabel("  AYUDA  ");
+    public static JLabel seleccionautor=new JLabel("  AUTORES  ");
 
     static void initPanelItems(){
         JPanel panel = new JPanel(new BorderLayout()){{
@@ -54,10 +61,30 @@ public class Run
         Reflexion reflexion = new Reflexion();
         Configuracion configuracion = new Configuracion();
         ChosseShape chosseShape = new ChosseShape();
-
+       // Border border = LineBorder.createGrayLineBorder(Color.black);
+        Border border = BorderFactory.createLineBorder(Color.black);
         panelMenuItem = new JPanel(new BorderLayout());
         panelMenuItem.add(panelRotacion);
+        seleccionayuda.setCursor(AppProps.handCursor);
+        seleccionayuda.setForeground(Color.black);
+        seleccionayuda.setBorder(border);
+        seleccionayuda.addMouseListener( new MouseAdapter() {
 
+            public void mouseClicked(MouseEvent e) {
+            	 modalHelp.setVisible(true);
+            }
+        });
+        
+        seleccionautor.setCursor(AppProps.handCursor);
+        seleccionautor.setForeground(Color.black);
+        seleccionautor.setBorder(border);
+        seleccionautor.addMouseListener( new MouseAdapter() {
+
+            public void mouseClicked(MouseEvent e) {
+            	 modalAutor.setVisible(true);
+            }
+        });
+        
         seleccionpane.setCursor(AppProps.handCursor);
         seleccionpane.setForeground(Color.black);
         seleccionpane.addMouseListener( new MouseAdapter() {
@@ -92,6 +119,8 @@ public class Run
             add(new PanelMenu(caras,"Caras"));
             add(new PanelMenu(chosseShape,"Figuras"));
             add(new PanelMenu(configuracion,"Configuracion"));
+            add(seleccionayuda);
+            add(seleccionautor);
 
         }};
 
@@ -130,6 +159,8 @@ public class Run
         initPanelItems();
 //        figura3D = new Figura3D();
         notifyImage = new NotifyImage(frame);
+        modalHelp = new Help(frame,true);
+        modalAutor = new Autores(frame,true);
         frame.setVisible(true);
         {
             cube3D = new Cube3D(Run::handler);

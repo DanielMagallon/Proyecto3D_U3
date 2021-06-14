@@ -17,6 +17,16 @@ public class Help extends JDialog
        add(new JLabel("Hello"));
        this.setLocationRelativeTo(null);
         setResizable(false);
+    }
+    
+    public void paint(Graphics g){
+    	//super.paintComponent(g);
+       super.paint(g);
+        Dimension tamanio = getSize();
+        URL ruta = getClass().getResource("/rsc/material/ayuda.png");
+        img=new ImageIcon(ruta).getImage();
+        g.drawImage(img, 0, 0,tamanio.width, tamanio.height, null);
+      
        
     }
 
